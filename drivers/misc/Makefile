@@ -59,6 +59,7 @@ obj-$(CONFIG_OMAP_DIE_TEMP_SENSOR)	+= omap_temp_sensor.o
 obj-$(CONFIG_LEDS_AN30259A)	+= leds-an30259a.o
 obj-$(CONFIG_COLOR_CONTROL)     += color_control.o
 obj-$(CONFIG_TWL6040_VIB)	+= twl6040-vib.o
+obj-$(CONFIG_SOUND_CONTROL)     += sound_control.o
 obj-$(CONFIG_CDC_TCXO)		+= cdc_tcxo.o
 obj-$(CONFIG_GCCORE)		+= gcx/gccore/
 obj-$(CONFIG_GCBV)		+= gcx/gcbv/
