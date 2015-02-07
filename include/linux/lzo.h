@@ -14,8 +14,8 @@
  *  Richard Purdie <rpurdie@openedhand.com>
  */
 
-#define LZO1X_MEM_COMPRESS	(8192 * sizeof(unsigned char *))
-#define LZO1X_1_MEM_COMPRESS	LZO1X_1_MEM_COMPRESS
+#define LZO1X_1_MEM_COMPRESS	(8192 * sizeof(unsigned char *))
+#define LZO1X_MEM_COMPRESS	LZO1X_1_MEM_COMPRESS
 
 #define lzo1x_worst_compress(x) ((x) + ((x) / 16) + 64 + 3)
 
