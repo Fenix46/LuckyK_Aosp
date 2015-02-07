@@ -530,7 +530,7 @@ config OMAP4_OVERRIDE_MPU_TRIM
 config OMAP_SMARTREFLEX_CUSTOM_SENSOR
 	bool "Enable support for custom NSensor and PSensor values"
 	depends on OMAP_SMARTREFLEX
-	default n
+	default y
 	help
 	  Enable support for custom NSensor and PSensor values in the
 	  voltage definitions used for SmartReflex calibration.
@@ -538,7 +538,15 @@ config OMAP_SMARTREFLEX_CUSTOM_SENSOR
 config OMAP4460_OVERCLOCKING
 	bool "Enable additional frequencies for overclocking etc support for OMAP4460."
 	depends on OMAP_SMARTREFLEX_CUSTOM_SENSOR
-	default n
+	default y
+
+
+config FORCE_FAST_CHARGE
+       bool "Force AC charge mode at will"
+       default y
+       help
+         A simple sysfs interface to force adapters that
+         are detected as USB to charge as AC.
 
 endmenu
 
