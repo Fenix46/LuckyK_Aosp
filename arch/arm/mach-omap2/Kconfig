@@ -540,6 +540,13 @@ config OMAP4460_OVERCLOCKING
 	depends on OMAP_SMARTREFLEX_CUSTOM_SENSOR
 	default y
 
+config OMAP4460_GPU_OVERCLOCK
+       bool "OMAP4460 GPU overclock"
+       depends on ARCH_OMAP4
+       help
+         Enables the 552 MHz GPU frequency for OMAP4460 devices.
+
+
 
 config FORCE_FAST_CHARGE
        bool "Force AC charge mode at will"
