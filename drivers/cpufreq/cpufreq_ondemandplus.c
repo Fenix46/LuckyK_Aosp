@@ -79,9 +79,9 @@ static spinlock_t speedchange_cpumask_lock;
 */
 #define DEFAULT_TIMER_RATE (20 * USEC_PER_MSEC)
 static unsigned long timer_rate;
-#define DEFAULT_UP_THRESHOLD 92
+#define DEFAULT_UP_THRESHOLD 95
 static unsigned long up_threshold;
-#define DEFAULT_DOWN_DIFFERENTIAL 59
+#define DEFAULT_DOWN_DIFFERENTIAL 62
 static unsigned long down_differential;
 #define DEFAULT_INTER_HIFREQ 1036800
 static u64 inter_hifreq;
@@ -91,8 +91,8 @@ static u64 inter_lofreq;
 static unsigned long inter_staycycles;
 #define DEFAULT_STAYCYCLES_RESETFREQ 450000
 static u64 staycycles_resetfreq;
-#define DEFAULT_IO_IS_BUSY 1
-static bool io_is_busy;
+#define DEFAULT_IO_IS_BUSY 2
+static unsigned int io_is_busy;
 /*
 * Tunables end
 */
@@ -131,6 +131,8 @@ cputime64_t *wall)
 u64 idle_time = get_cpu_idle_time_us(cpu, wall);
 if (idle_time == -1ULL)
 idle_time = get_cpu_idle_time_jiffy(cpu, wall);
+ else if (io_is_busy == 2)
+ idle_time += (get_cpu_iowait_time_us(cpu, wall) / 2);
 else if (!io_is_busy)
 idle_time += get_cpu_iowait_time_us(cpu, wall);
 return idle_time;
