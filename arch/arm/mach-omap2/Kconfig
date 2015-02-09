@@ -543,7 +543,11 @@ config OMAP_SMARTREFLEX_CUSTOM_SENSOR
          Enable support for custom NSensor and PSensor values in the
          voltage definitions used for SmartReflex calibration.
 
-
+config OMAP4460_GPU_OVERCLOCK
+       bool "OMAP4460 GPU overclock"
+       depends on ARCH_OMAP4
+       help
+         Enables the 512 MHz GPU frequency for OMAP4460 devices
 
 config FORCE_FAST_CHARGE
        bool "Force AC charge mode at will"
