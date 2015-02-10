@@ -16,6 +16,7 @@
 #include <linux/pagemap.h>
 #include <linux/buffer_head.h>
 #include <linux/backing-dev.h>
+#include <linux/blkdev.h>
 #include <linux/pagevec.h>
 #include <linux/migrate.h>
 #include <linux/page_cgroup.h>
@@ -394,6 +395,7 @@ struct page *swapin_readahead(swp_entry_t entry, gfp_t gfp_mask,
 	struct page *page;
 	unsigned long offset;
 	unsigned long end_offset;
+        struct blk_plug plug;
 
 	/*
 	 * Get starting offset for readaround, and number of pages to read.
@@ -403,6 +405,7 @@ struct page *swapin_readahead(swp_entry_t entry, gfp_t gfp_mask,
 	 * so use the same "addr" to choose the same node for each swap read.
 	 */
 	nr_pages = valid_swaphandles(entry, &offset);
+        blk_start_plug(&plug);
 	for (end_offset = offset + nr_pages; offset < end_offset; offset++) {
 		/* Ok, do the async read-ahead now */
 		page = read_swap_cache_async(swp_entry(swp_type(entry), offset),
@@ -411,6 +414,8 @@ struct page *swapin_readahead(swp_entry_t entry, gfp_t gfp_mask,
 			break;
 		page_cache_release(page);
 	}
+        blk_finish_plug(&plug);
+
 	lru_add_drain();	/* Push any new pages onto the LRU now */
 	return read_swap_cache_async(entry, gfp_mask, vma, addr);
 }
