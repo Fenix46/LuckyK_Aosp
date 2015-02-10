@@ -173,7 +173,7 @@ rq = sio_choose_expired_request(sd);
 }
 /* Retrieve request */
 if (!rq) {
-if (sd->starved > sd->writes_starved)
+if (sd->starved >= sd->writes_starved)
 data_dir = WRITE;
 rq = sio_choose_request(sd, data_dir);
 if (!rq)
@@ -291,7 +291,7 @@ STORE_FUNCTION(sio_sync_write_expire_store, &sd->fifo_expire[SYNC][WRITE], 0, IN
 STORE_FUNCTION(sio_async_read_expire_store, &sd->fifo_expire[ASYNC][READ], 0, INT_MAX, 1);
 STORE_FUNCTION(sio_async_write_expire_store, &sd->fifo_expire[ASYNC][WRITE], 0, INT_MAX, 1);
 STORE_FUNCTION(sio_fifo_batch_store, &sd->fifo_batch, 1, INT_MAX, 0);
-STORE_FUNCTION(sio_writes_starved_store, &sd->writes_starved, 0, INT_MAX, 0);
+STORE_FUNCTION(sio_writes_starved_store, &sd->writes_starved, 1, INT_MAX, 0);
 #undef STORE_FUNCTION
 #define DD_ATTR(name) \
 __ATTR(name, S_IRUGO|S_IWUSR, sio_##name##_show, \
