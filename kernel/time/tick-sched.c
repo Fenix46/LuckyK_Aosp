@@ -144,6 +144,7 @@ static void tick_nohz_update_jiffies(ktime_t now)
 
 	local_irq_save(flags);
 	tick_do_update_jiffies64(now);
+        
 	local_irq_restore(flags);
 
 	touch_softlockup_watchdog();
@@ -524,6 +525,7 @@ void tick_nohz_restart_sched_tick(void)
 	/* Update jiffies first */
 	select_nohz_load_balancer(0);
 	tick_do_update_jiffies64(now);
+        update_cpu_load_nohz();
 	cpumask_clear_cpu(cpu, nohz_cpu_mask);
 
 #ifndef CONFIG_VIRT_CPU_ACCOUNTING
